@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export const CartContexts = React.createContext();
 
 class CartsContexts extends Component {
@@ -142,7 +143,29 @@ class CartsContexts extends Component {
       products: products.map((product) => {
         if (product.id === id && product.amount !== 0) {
           cart.push({ ...product, id: this.randomId() });
+          toast.success("Item added successfully", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
           return { ...product, amount: (product.amount = 0) };
+        }
+
+        if (product.id === id && product.amount === 0) {
+          toast.error("must one product !", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          return { ...product };
         }
         return { ...product };
       }),
@@ -170,6 +193,19 @@ class CartsContexts extends Component {
         return { ...item, amount: item.amount - 1 };
       }
 
+      if (item.id === id && item.amount <= 1) {
+        toast.error("need at least one product !", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        return item;
+      }
+
       return item;
     });
 
@@ -178,6 +214,16 @@ class CartsContexts extends Component {
 
   handleClearCart = () => {
     const { cart } = this.state;
+    toast.info("The cart was cleaned", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    window.scrollTo(0, 0);
     this.setState({
       cart: cart.filter((product) => {
         return null;
@@ -187,7 +233,15 @@ class CartsContexts extends Component {
 
   handleDeleteItemCart = (id) => {
     const { cart } = this.state;
-
+    toast.info("The Item was deleted", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
     this.setState({
       cart: cart.filter((product) => {
         return product.id !== id;
@@ -212,6 +266,7 @@ class CartsContexts extends Component {
           handleDecrementCart: this.handleDecrementCart,
         }}
       >
+        <ToastContainer />
         {this.props.children}
       </CartContexts.Provider>
     );
