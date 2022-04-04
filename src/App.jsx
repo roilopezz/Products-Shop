@@ -1,26 +1,23 @@
 import "./App.css";
-import NavBar from "./components/pages/navbar/navbar";
-import Dashboard from "./components/pages/dashboard/dashboard";
-import CartsContexts from "./contexts/contexCart";
-import Footer from "./components/pages/footer/footer";
-import { Route } from "react-router-dom";
+// import NavBar from "./components/pages/navbar/navbar";
+import Dashboard from "./components/dashboard";
+import ShopContext from "./services/shopContext";
+import UserContext from "./services/userContext";
+
+// import Footer from "./components/pages/footer/footer";
 
 function App() {
   return (
     <div className="App">
-      <CartsContexts>
-        <header className="fixed-top">
-          <NavBar />
-        </header>
+      <UserContext>
+        <ShopContext>
+          <Dashboard />
 
-        <main className="container-fluid pt-5 flex-fill ">
-          <Route path="/" component={Dashboard} />
-        </main>
-
-        <footer>
-          <Footer />
-        </footer>
-      </CartsContexts>
+          {/* <footer>
+            <Footer />
+          </footer> */}
+        </ShopContext>
+      </UserContext>
     </div>
   );
 }
