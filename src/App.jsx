@@ -1,6 +1,7 @@
 import "./App.css";
 // import NavBar from "./components/pages/navbar/navbar";
 import Dashboard from "./components/dashboard";
+import Footer from "./components/footer/footer";
 import ShopContext from "./services/shopContext";
 import UserContext from "./services/userContext";
 
@@ -13,9 +14,9 @@ function App() {
         <ShopContext>
           <Dashboard />
 
-          {/* <footer>
+          <footer>
             <Footer />
-          </footer> */}
+          </footer>
         </ShopContext>
       </UserContext>
     </div>
