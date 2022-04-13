@@ -30,6 +30,25 @@ const NavBar = () => {
           Contact
         </Link>
 
+        <Link className="tabs" to="/shop">
+          Shop
+        </Link>
+        <Link className="tabs" to="/cart">
+          <i className="bi bi-cart-fill"></i>
+          <span
+            style={{
+              position: "relative",
+              bottom: "13px",
+              right: "2px",
+              color: "gold",
+              fontSize: "10px",
+              fontWeight: "bold",
+            }}
+          >
+            {cart.length}
+          </span>
+        </Link>
+
         {!user.length ? (
           <>
             <Link className="tabs" to="/register">
@@ -51,24 +70,6 @@ const NavBar = () => {
               );
             })}
 
-            <Link className="tabs" to="/shop">
-              Shop
-            </Link>
-            <Link className="tabs" to="/cart">
-              <i className="bi bi-cart-fill"></i>
-              <span
-                style={{
-                  position: "relative",
-                  bottom: "13px",
-                  right: "2px",
-                  color: "gold",
-                  fontSize: "10px",
-                  fontWeight: "bold",
-                }}
-              >
-                {cart.length}
-              </span>
-            </Link>
             <Link
               className="tabs"
               to="/"

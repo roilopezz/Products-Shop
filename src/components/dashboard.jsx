@@ -24,20 +24,18 @@ const Dashboard = () => {
       <Nav />
 
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Shop} />
         {/* <Route path="/" component={Home} /> */}
         <Route path="/about" component={About} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/contact" component={Contact} />
-        {/* <Route path="/profile" component={Profile} /> */}
+        <Route path="/shop" component={Shop} />
+        <Route path="/cart" component={Cart} />
 
-        {/* <Route path="/p" element={Contact} /> */}
         {user.length ? (
           <>
             <Route path="/profile" component={Profile} />
-            <Route path="/shop" component={Shop} />
-            <Route path="/cart" component={Cart} />
           </>
         ) : null}
 
