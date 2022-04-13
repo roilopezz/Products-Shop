@@ -30,9 +30,7 @@ const NavBar = () => {
           Contact
         </Link>
 
-        <Link className="tabs" to="/shop">
-          Shop
-        </Link>
+  
         <Link className="tabs" to="/cart">
           <i className="bi bi-cart-fill"></i>
           <span
