@@ -1,0 +1,14 @@
+.addCoupons {
+  width: 20% !important;
+}
+
+.amount {
+  position: relative;
+  top: 5px;
+}
+
+@media (max-width: 1000px) {
+  .addCoupons {
+    width: 40% !important;
+  }
+}

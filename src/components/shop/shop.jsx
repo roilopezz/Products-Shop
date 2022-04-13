@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { Button } from "react-bootstrap";
 import { contextShop } from "../../services/shopContext";
+import "./shop.css";
 const Shop = () => {
   const shopContext = useContext(contextShop);
 
@@ -38,14 +39,14 @@ const Shop = () => {
                     <span className="ms-3">{item.price} $ </span>
                     <br />
                     <div className="text-center mt-4 d-flex justify-content-center">
-                      <div className="col-3">
+                      <div className="col-xl-3 col-4">
                         <button
                           className="btn btn-primary float-start"
                           onClick={() => handleIncrement(item.id)}
                         >
                           +
                         </button>
-                        {item.amount}
+                        <span className="amount">{item.amount}</span>
                         <button
                           className="btn btn-danger float-end"
                           onClick={() => handleDecrement(item.id)}

@@ -1,15 +1,17 @@
 import { contextShop } from "../../services/shopContext";
-import React, { useEffect, useContext } from "react";
-
+import React, { useContext, useState } from "react";
+import { Button, Form, InputGroup } from "react-bootstrap";
+import "./shop.css";
 const Cart = ({}) => {
   const shopContext = useContext(contextShop);
-
+  const [coupons, setCoupons] = useState("");
   const {
     handleClearCart,
     handleDecrementCart,
     handleIncrementCart,
     cart,
     handleDeleteItemCart,
+    addCoupon,
   } = shopContext;
 
   return (
@@ -29,75 +31,96 @@ const Cart = ({}) => {
         </div>
 
         {cart.length ? (
-          <table className="table">
-            <thead>
-              <tr>
-                <th className="hideItemCart" scope="col">
-                  #
-                </th>
-                <th scope="col">Product</th>
-                <th className="" scope="col ">
-                  Amount
-                </th>
-                <th scope="col">price</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
+          <>
+            <InputGroup className="mb-3 addCoupons">
+              <Form.Control
+                value={coupons}
+                onChange={(e) => setCoupons(e.target.value)}
+                // value={coupons[item.id]}
+                // onChange={(e) => setCoupons({ [item.id]: e.target.value })}
+              ></Form.Control>
+              <Button
+                disabled={coupons.length ? false : true}
+                onClick={() => addCoupon(coupons) + setCoupons("")}
 
-            {cart.map((item) => {
-              // if (item.id) {
-              //   let c = item.reduce(function (previous, key) {
-              //     return previous + item[key].amount;
-              //   }, 0);
-              //   console.log(c);
-              // }
+                // onClick={() =>
+                //   // addCoupon(item.id, coupons[item.id]) +
+                //   // setCoupons({ [item.id]: "" })
+                // }
+              >
+                Coupon
+              </Button>
+            </InputGroup>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th className="hideItemCart" scope="col">
+                    #
+                  </th>
+                  <th scope="col">Product</th>
+                  <th className="" scope="col ">
+                    Amount
+                  </th>
+                  <th scope="col">price</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
 
-              return (
-                <tbody key={item.id}>
-                  <tr>
-                    <th className="hideItemCart" scope="row">
-                      <img
-                        style={{ width: "70px" }}
-                        className="img-thumbnail rounded"
-                        src={item.src}
-                        alt=""
-                      />
-                    </th>
+              {cart.map((item) => {
+                // if (item.id) {
+                //   let c = item.reduce(function (previous, key) {
+                //     return previous + item[key].amount;
+                //   }, 0);
+                //   console.log(c);
+                // }
 
-                    <td className="pt-xl-3 pt-lg-3 pt-md-3">{item.title}</td>
-                    <td className="pt-xl-3 pt-lg-3 pt-md-3">
-                      <span className="containerBtnsCart">
+                return (
+                  <tbody key={item.id}>
+                    <tr>
+                      <th className="hideItemCart" scope="row">
+                        <img
+                          style={{ width: "70px" }}
+                          className="img-thumbnail rounded"
+                          src={item.src}
+                          alt=""
+                        />
+                      </th>
+
+                      <td className="pt-xl-3 pt-lg-3 pt-md-3">{item.title}</td>
+                      <td className="pt-xl-3 pt-lg-3 pt-md-3">
+                        <span className="containerBtnsCart">
+                          <button
+                            onClick={() => handleDecrementCart(item.id)}
+                            className="btnCart1 btn btn-danger me-1 me-xl-3 rr BtnsCart"
+                          >
+                            <i className="bi bi-dash btnMinIcon"></i>
+                          </button>
+                          {item.amount}
+                          <button
+                            className="btn btn-success ms-1 ms-xl-3 BtnsCart"
+                            onClick={() => handleIncrementCart(item.id)}
+                          >
+                            <i className="bi bi-plus btnPluIcon"></i>
+                          </button>
+                        </span>
+                      </td>
+                      <td className="pt-xl-3 pt-lg-3 pt-md-3 tt">
+                        {item.price * item.amount}
+                      </td>
+                      <td className="pt-xl-3 pt-lg-3 pt-md-3">
                         <button
-                          onClick={() => handleDecrementCart(item.id)}
-                          className="btnCart1 btn btn-danger me-1 me-xl-3 rr BtnsCart"
+                          onClick={() => handleDeleteItemCart(item.id)}
+                          className="btn btn-danger ms-xl-4 btnDelCart BtnsCart"
                         >
-                          <i className="bi bi-dash btnMinIcon"></i>
+                          <i className="bi bi-trash deleteCartIcon"></i>
                         </button>
-                        {item.amount}
-                        <button
-                          className="btn btn-success ms-1 ms-xl-3 BtnsCart"
-                          onClick={() => handleIncrementCart(item.id)}
-                        >
-                          <i className="bi bi-plus btnPluIcon"></i>
-                        </button>
-                      </span>
-                    </td>
-                    <td className="pt-xl-3 pt-lg-3 pt-md-3 tt">
-                      {item.price * item.amount}
-                    </td>
-                    <td className="pt-xl-3 pt-lg-3 pt-md-3">
-                      <button
-                        onClick={() => handleDeleteItemCart(item.id)}
-                        className="btn btn-danger ms-xl-4 btnDelCart BtnsCart"
-                      >
-                        <i className="bi bi-trash deleteCartIcon"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
-          </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
+            </table>
+          </>
         ) : (
           <p className="pt-5 mt-5">The cart is empty</p>
         )}
